@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const treatments = [
-  { name: "Thermage FLX", desc: "Skin tightening · RF energy", price: "$2k – $5k", type: "Energy", icon: "⚡", href: "/treatment/thermage" },
+  { name: "Thermage FLX", desc: "Skin tightening · RF energy", price: "$2k – $5k", type: "Energy", icon: "⚡", href: "/treatment/thermage-flx" },
   { name: "Ultherapy", desc: "Lifting · Ultrasound", price: "$3k – $6k", type: "Energy", icon: "〜", href: "/treatment/ultherapy" },
   { name: "Filler", desc: "Volume & contour · HA", price: "$600 – $2k", type: "Injectable", icon: "💧", href: "/treatment/filler" },
   { name: "Botox", desc: "Wrinkle relaxing · Neurotoxin", price: "$300 – $800", type: "Injectable", icon: "✦", href: "/treatment/botox" },

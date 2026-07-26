@@ -36,9 +36,9 @@ function ResultsContent() {
 
   return (
     <div style={{ paddingBottom: 40 }}>
-      <div className="top-nav">
-        <Link href="/goal" className="back-btn">←</Link>
-        <span className="page-title">Your results</span>
+      <div style={{ display: "flex", alignItems: "center", padding: "52px 16px 16px", gap: 12 }}>
+        <Link href="/goal" style={{ width: 34, height: 34, borderRadius: "50%", border: "0.5px solid var(--border-strong)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-primary)", background: "white", textDecoration: "none", fontSize: 16, flexShrink: 0 }}>←</Link>
+        <span style={{ fontSize: 17, fontWeight: 500 }}>Your results</span>
       </div>
 
       {/* Profile summary */}
@@ -71,7 +71,7 @@ function ResultsContent() {
       {treatments.map((t, i) => {
         const tc = typeColor(t.type);
         return (
-          <Link key={i} href={`/treatment/${t.name.toLowerCase().replace(/\s+/g, "-")}`} style={{ textDecoration: "none" }}>
+          <Link key={i} href={`/treatment/${t.name.toLowerCase().replace(/\s+/g, "-")}?match=${t.match}`} style={{ textDecoration: "none" }}>
             <div style={{ margin: "0 16px 12px", background: "white", border: t.isBestMatch ? "1.5px solid var(--accent)" : "0.5px solid var(--border)", borderRadius: 16, overflow: "hidden", cursor: "pointer" }}>
               {/* Card header */}
               <div style={{ padding: "14px 16px 10px", display: "flex", alignItems: "flex-start", gap: 12 }}>
