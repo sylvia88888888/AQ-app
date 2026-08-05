@@ -5,7 +5,7 @@ export const treatments: Record<string, {
   downtime: string; sessions: string; resultsLast: string;
   what: string; good: string[]; bad: string[];
   myths: { q: string; a: string }[];
-  questions: string[];
+  questions: { q: string; hint: string }[];
   prices: { loc: string; price: string }[];
   isSurgical?: boolean;
 }> = {
@@ -20,7 +20,12 @@ export const treatments: Record<string, {
       { q: "You'll see results immediately", a: "Collagen rebuilds slowly. Most people see gradual improvement over 3–6 months. Day-one results from swelling are temporary." },
       { q: "It's the same as Ultherapy", a: "Different technologies. Thermage uses RF to tighten surface layers; Ultherapy uses ultrasound to reach deeper SMAS tissue." },
     ],
-    questions: ["What energy level and shot count do you recommend for my skin, and why?", "Are you using the FLX handpiece or an older model?", "How many Thermage treatments have you personally performed?", "Do you think Thermage alone is enough or would you combine it?"],
+    questions: [
+      { q: "What energy level and shot count do you recommend for my skin, and why?", hint: "A good provider should recommend at least 900–1,200 shots for a full face at 85–125+ joules. Be cautious if they can't explain their energy settings or suggest fewer than 600 shots." },
+      { q: "Are you using the FLX handpiece or an older model?", hint: "The FLX is the current generation with a larger tip and better comfort. Older models (like the CPT) can still work but the FLX is preferred. Price should not be the same as older equipment." },
+      { q: "How many Thermage treatments have you personally performed?", hint: "Look for someone who has done at least 50–100 procedures. Thermage results are highly operator-dependent — technique and experience matter enormously." },
+      { q: "Do you think Thermage alone is enough or would you combine it?", hint: "An honest provider will tell you if your concerns are beyond what Thermage can achieve. Combining with Ultherapy or filler is common — beware of upselling without clear rationale." },
+    ],
     prices: [{ loc: "Los Angeles", price: "$2,500 – $5,000" }, { loc: "US average", price: "$2,000 – $4,500" }, { loc: "Price per shot", price: "$3 – $8 / shot" }],
   },
   "ultherapy": {
@@ -34,7 +39,12 @@ export const treatments: Record<string, {
       { q: "Results appear right away", a: "Most people see peak results at 3–6 months, with continued improvement for up to a year." },
       { q: "It's painful for everyone", a: "Discomfort varies widely. Ask about pain management options — many clinics offer numbing cream or adjusted settings." },
     ],
-    questions: ["How many lines do you recommend for my concern areas, and at what depth?", "How will you manage my comfort during the procedure?", "How many Ultherapy procedures have you performed?", "Do I have enough tissue volume for this to be effective?"],
+    questions: [
+      { q: "How many lines do you recommend for my concern areas, and at what depth?", hint: "A full face typically uses 300–600 lines across depths of 1.5mm, 3mm, and 4.5mm. If a provider quotes far fewer without explanation, ask why. Depth matters as much as quantity." },
+      { q: "How will you manage my comfort during the procedure?", hint: "Numbing cream, nerve blocks, or oral pain medication should be offered. Ultherapy can be uncomfortable — a provider who dismisses pain concerns is a red flag." },
+      { q: "How many Ultherapy procedures have you performed?", hint: "Look for 50+ procedures minimum. Results are heavily operator-dependent. Ask to see before-and-after photos of their own patients, not stock images." },
+      { q: "Do I have enough tissue volume for this to be effective?", hint: "Critical question. If you have a very thin or gaunt face, Ultherapy may worsen volume loss. An honest provider will tell you if you're not a good candidate." },
+    ],
     prices: [{ loc: "Los Angeles", price: "$3,500 – $6,000" }, { loc: "US average", price: "$3,000 – $5,500" }, { loc: "Full face + neck", price: "$4,000 – $6,000" }],
   },
   "filler": {
@@ -48,7 +58,12 @@ export const treatments: Record<string, {
       { q: "Filler stretches your skin permanently", a: "Quality HA fillers are biodegradable and dissolve naturally over time." },
       { q: "All fillers are the same", a: "Different HA fillers have different thicknesses for different uses — lip filler is not the same product as cheek filler." },
     ],
-    questions: ["Which filler brand and product are you using, and why?", "How much product do you plan to use, and where exactly?", "What's your approach if I don't like the results?", "Do you have hyaluronidase on hand to dissolve if needed?"],
+    questions: [
+      { q: "Which filler brand and product are you using, and why?", hint: "Reputable brands: Juvederm, Restylane, Sculptra, Radiesse. Different products suit different areas — Voluma for cheeks, Volbella for lips. A provider using one product everywhere may lack experience." },
+      { q: "How much product do you plan to use, and where exactly?", hint: "Cheeks: 1–2 syringes. Lips: 0.5–1 syringe. Under-eyes: 0.5–1 syringe. Be cautious of anyone recommending 4+ syringes in one session without a very clear, area-by-area plan." },
+      { q: "What's your approach if I don't like the results?", hint: "HA fillers can be dissolved with hyaluronidase. A reputable injector should confirm willingness to dissolve if you're unhappy. This reflects confidence in their work and respect for your autonomy." },
+      { q: "Do you have hyaluronidase on hand to dissolve if needed?", hint: "The answer must be yes. Hyaluronidase dissolves HA fillers and is essential for emergencies (vascular occlusion) and aesthetic corrections. Never proceed without this assurance." },
+    ],
     prices: [{ loc: "Per syringe (LA)", price: "$700 – $1,200" }, { loc: "Per syringe (US avg)", price: "$600 – $1,000" }, { loc: "Lips (1 syringe)", price: "$600 – $900" }],
   },
   "botox": {
@@ -62,7 +77,12 @@ export const treatments: Record<string, {
       { q: "Once you start, you can't stop", a: "You can stop at any time. Muscles gradually return to normal." },
       { q: "Botox is only for wrinkles", a: "It's also used for jaw slimming, brow lifting, lip flipping, excessive sweating, and neck bands." },
     ],
-    questions: ["How many units do you recommend for each area, and what's your pricing per unit?", "Which brand are you using (Botox, Dysport, Xeomin)?", "How do you adjust for my facial anatomy?", "What should I expect in terms of onset and duration?"],
+    questions: [
+      { q: "How many units do you recommend for each area, and what's your pricing per unit?", hint: "Typical: forehead 10–20 units, glabella (11s) 15–25 units, crow's feet 10–15/side. Be wary of flat-fee pricing that doesn't discuss units — you may be getting less than you think." },
+      { q: "Which brand are you using (Botox, Dysport, Xeomin)?", hint: "All three are FDA-approved. Botox is most studied; Dysport spreads more (better for forehead); Xeomin has no additives (good for those with resistance). Ask why they prefer theirs." },
+      { q: "How do you adjust for my facial anatomy?", hint: "A skilled injector watches you make expressions before injecting. Cookie-cutter patterns without individual assessment are a red flag. Your muscle patterns are unique." },
+      { q: "What should I expect in terms of onset and duration?", hint: "Botox: kicks in 5–7 days, full effect at 2 weeks, lasts 3–4 months. If a provider promises 6+ months from standard doses, be skeptical — that's not clinically accurate." },
+    ],
     prices: [{ loc: "Per unit (LA)", price: "$14 – $20 / unit" }, { loc: "Per unit (US avg)", price: "$10 – $18 / unit" }, { loc: "Full forehead", price: "$300 – $600" }],
   },
   "sculptra": {
@@ -76,7 +96,11 @@ export const treatments: Record<string, {
       { q: "It's the same as regular filler", a: "Sculptra is a biostimulator — it signals your body to produce collagen rather than adding direct volume." },
       { q: "Three sessions is optional", a: "The 3-session protocol is standard. Skipping sessions reduces effectiveness." },
     ],
-    questions: ["How many vials per session do you recommend?", "What's your massage protocol to avoid nodules?", "How do you track my collagen response between sessions?"],
+    questions: [
+      { q: "How many vials per session do you recommend?", hint: "Typically 1–2 vials for moderate volume loss, up to 3–4 for significant loss. The '1 vial per decade of life' is a rough guide. Be cautious of 5+ vials in one session." },
+      { q: "What's your massage protocol to avoid nodules?", hint: "Standard is the '5-5-5 rule': massage 5 times a day, 5 minutes each, for 5 days. A provider who doesn't mention this or has a different protocol should explain their reasoning." },
+      { q: "How do you track my collagen response between sessions?", hint: "Good providers take standardized photos and reassess before each session. They should adjust the plan based on how you're responding — not just follow a fixed protocol regardless." },
+    ],
     prices: [{ loc: "Per vial (LA)", price: "$800 – $1,000" }, { loc: "Full protocol (3 sessions)", price: "$2,400 – $4,500" }, { loc: "US average per vial", price: "$700 – $900" }],
   },
   "rf-microneedling": {
@@ -89,7 +113,11 @@ export const treatments: Record<string, {
       { q: "It's the same as regular microneedling", a: "RF microneedling adds heat energy deep into the dermis for significantly more collagen stimulation." },
       { q: "More sessions always means better results", a: "3 sessions spaced 4–6 weeks apart is the standard protocol." },
     ],
-    questions: ["Which device do you use (Morpheus8, Vivace, Potenza)?", "What depth and energy settings do you plan to use?", "What skincare should I avoid before and after?"],
+    questions: [
+      { q: "Which device do you use (Morpheus8, Vivace, Potenza)?", hint: "Morpheus8 is the most widely studied and reaches deepest tissue (up to 8mm). Vivace and Potenza are also reputable. Ask why they chose their device and what depth they'll use for your concerns." },
+      { q: "What depth and energy settings do you plan to use?", hint: "For tightening: deeper settings (3–4mm). For texture/pores: shallower (1–2mm). Generic settings for every patient is a red flag — your concerns should drive the protocol." },
+      { q: "What skincare should I avoid before and after?", hint: "Avoid retinoids 5–7 days before. No active skincare (acids, vitamin C) for 1 week after. Strict sun protection after. Detailed aftercare instructions signal an experienced provider." },
+    ],
     prices: [{ loc: "Los Angeles", price: "$800 – $1,800 / session" }, { loc: "US average", price: "$700 – $1,500 / session" }, { loc: "Package of 3", price: "$2,000 – $4,500" }],
   },
   "face-lift": {
@@ -102,7 +130,12 @@ export const treatments: Record<string, {
       { q: "Face lifts look obvious and 'pulled'", a: "Modern techniques reposition deeper tissue rather than just pulling skin, creating natural-looking results." },
       { q: "Results last forever", a: "Most patients enjoy results for 7–10 years before considering revision." },
     ],
-    questions: ["Are you board-certified in plastic surgery?", "What technique do you use — SMAS, deep plane, or composite?", "What are the realistic risks for my anatomy and health?"],
+    questions: [
+      { q: "Are you board-certified in plastic surgery?", hint: "Look for board certification from the American Board of Plastic Surgery (ABPS). This is a minimum — also check how many face lifts they perform annually (100+ per year indicates high volume)." },
+      { q: "What technique do you use — SMAS, deep plane, or composite?", hint: "SMAS is most common and reliable. Deep plane reaches deeper tissue for longer-lasting results but is more complex. The right choice depends on your anatomy. A surgeon should explain their recommendation." },
+      { q: "What are the realistic risks for my anatomy and health?", hint: "Expect discussion of: hematoma (most common complication), nerve injury, scarring, asymmetry, anesthesia risks. A surgeon who only discusses positives without acknowledging risks is a red flag." },
+      { q: "Can I see before-and-after photos of patients with similar anatomy to mine?", hint: "Look for natural results without obvious pulling or windswept appearance. Ask if the photos are their own patients (not stock). Also ask about their revision rate." },
+    ],
     prices: [{ loc: "Los Angeles", price: "$15,000 – $35,000" }, { loc: "US average", price: "$12,000 – $28,000" }],
   },
   "blepharoplasty": {
@@ -115,7 +148,11 @@ export const treatments: Record<string, {
       { q: "It removes dark circles", a: "Blepharoplasty removes bags and excess skin, but dark circles from pigmentation are a separate issue." },
       { q: "Both eyes will look identical after", a: "Natural facial asymmetry means eyes will be improved but not perfectly symmetrical." },
     ],
-    questions: ["Do you recommend upper, lower, or both?", "Will you use local or general anesthesia?", "Do I have any risk factors for dry eye?"],
+    questions: [
+      { q: "Do you recommend upper, lower, or both — and why based on my anatomy?", hint: "Upper blepharoplasty addresses hooding; lower addresses bags and hollows. Sometimes a brow lift is the correct solution for apparent eyelid drooping. An experienced surgeon distinguishes these carefully." },
+      { q: "Will you use local or general anesthesia?", hint: "Upper lid surgery is often done under local with sedation. Lower lid or combined procedures may require general anesthesia. Ask where surgery will be performed — accredited surgical facility is important." },
+      { q: "Do I have any risk factors for dry eye or other complications?", hint: "Dry eye syndrome can worsen significantly after blepharoplasty. Thyroid disease, previous LASIK, and certain medications also increase risk. A thorough pre-op evaluation should identify these." },
+    ],
     prices: [{ loc: "Los Angeles (both lids)", price: "$6,000 – $15,000" }, { loc: "Upper lids only", price: "$3,000 – $7,000" }, { loc: "Lower lids only", price: "$4,000 – $9,000" }],
   },
   "porcelain-veneers": {
@@ -128,7 +165,12 @@ export const treatments: Record<string, {
       { q: "Veneers look fake and too white", a: "Modern veneers are customized to match natural tooth translucency and color." },
       { q: "They don't require maintenance", a: "Veneers last longer with good oral hygiene, regular dental visits, and avoiding hard foods." },
     ],
-    questions: ["How much enamel will you need to remove?", "Can I see a digital mock-up before committing?", "What's your warranty if a veneer chips?"],
+    questions: [
+      { q: "How much enamel will you need to remove?", hint: "Minimal prep veneers (like Lumineers) remove very little enamel. Traditional veneers require 0.5–0.7mm removal. No-prep veneers exist but aren't suitable for everyone. Less removal is generally better." },
+      { q: "Can I see a digital mock-up before committing?", hint: "A digital smile design or wax mock-up lets you preview the result before any irreversible work is done. Dentists who skip this step are asking you to commit blind — a legitimate concern." },
+      { q: "What's your warranty or touch-up policy if a veneer chips or debonds?", hint: "Quality veneers should last 10–20 years. Some dentists offer 1–5 year warranties. Ask what events are covered and what the cost would be for replacement. Get this in writing." },
+      { q: "Do I need any preparatory work before veneers?", hint: "Gum contouring, teeth whitening of non-veneer teeth, or cavity treatment may be needed first. A complete treatment plan before starting is a sign of thorough care." },
+    ],
     prices: [{ loc: "Per tooth (LA)", price: "$1,500 – $2,500" }, { loc: "Full set of 8 (LA)", price: "$12,000 – $20,000" }, { loc: "US average per tooth", price: "$1,000 – $2,000" }],
   },
   "kybella": {
@@ -141,7 +183,11 @@ export const treatments: Record<string, {
       { q: "One session is enough", a: "Most patients need 2–4 sessions spaced 4–6 weeks apart." },
       { q: "The swelling means it's not working", a: "Significant swelling is normal and expected — it indicates fat cells are being destroyed." },
     ],
-    questions: ["How many vials per session do you recommend?", "What can I expect in terms of swelling?", "Is Kybella right for me or would liposuction give better results?"],
+    questions: [
+      { q: "How many vials per session do you recommend?", hint: "Typically 2 vials per session for moderate submental fat. Some cases require up to 4 vials per session. More than that in one session raises safety concerns." },
+      { q: "What can I expect in terms of swelling?", hint: "Significant swelling ('Kybella bullfrog') lasting 1–2 weeks is expected and normal. Plan social commitments accordingly. Swelling indicates the fat cells are being destroyed — this is working as intended." },
+      { q: "Is Kybella right for me or would neck liposuction give better results?", hint: "If you have significant fat or want faster results, liposuction may be more effective in one session. A provider who only offers Kybella without considering alternatives may not have your best interests first." },
+    ],
     prices: [{ loc: "Per session (LA)", price: "$1,200 – $2,500" }, { loc: "Full treatment", price: "$2,400 – $8,000" }],
   },
   "teeth-whitening": {
@@ -155,7 +201,12 @@ export const treatments: Record<string, {
       { q: "Results are permanent", a: "Whitening fades over time, especially with continued coffee, tea, or wine consumption. Touch-ups every 6–12 months maintain results." },
       { q: "All whitening products are equal", a: "In-office professional whitening uses higher concentrations than store-bought kits, producing faster and more dramatic results." },
     ],
-    questions: ["What concentration of whitening agent do you use?", "How many shades lighter can I realistically expect?", "Do I need any pre-treatment for sensitivity?", "What take-home maintenance do you recommend after?"],
+    questions: [
+      { q: "What concentration of whitening agent do you use?", hint: "In-office systems typically use 25–40% hydrogen peroxide. Higher concentration means faster results but more sensitivity risk. Laser-activated systems allow lower concentrations with comparable results." },
+      { q: "How many shades lighter can I realistically expect?", hint: "Most patients achieve 3–8 shades lighter in one session. Results depend on starting shade and tooth structure. Intrinsic staining (from antibiotics or fluorosis) responds less well — a good provider will tell you this upfront." },
+      { q: "Do I need any pre-treatment for sensitivity?", hint: "If you have sensitive teeth, ask about desensitizing treatments before and after. Potassium nitrate toothpaste in the days before can reduce discomfort. A provider should screen for this, not wait for you to complain." },
+      { q: "What take-home maintenance do you recommend?", hint: "Touch-up trays with lower-concentration gel (10–16% carbamide peroxide) maintain results. Avoid coffee, tea, red wine, and smoking for at least 48 hours after treatment when 'rebound staining' is highest." },
+    ],
     prices: [{ loc: "In-office (LA)", price: "$300 – $800" }, { loc: "US average", price: "$250 – $600" }, { loc: "Take-home kit", price: "$100 – $400" }],
   },
   "invisalign": {
@@ -169,7 +220,12 @@ export const treatments: Record<string, {
       { q: "You can take them out whenever you want", a: "Aligners must be worn 20–22 hours daily for treatment to work on schedule. Frequent removal extends treatment time significantly." },
       { q: "Treatment ends when you finish aligners", a: "Retainers must be worn indefinitely (nightly) after treatment to maintain results." },
     ],
-    questions: ["Am I a good candidate for Invisalign or do I need traditional braces?", "How many aligners will my treatment require, and what's the estimated timeline?", "What happens if I lose or break an aligner?", "Will I need any attachments (small tooth-colored bumps) on my teeth?"],
+    questions: [
+      { q: "Am I a good candidate for Invisalign or do I need traditional braces?", hint: "Invisalign works well for mild-moderate cases. Severe crowding, large gaps, significant bite issues, or teeth that need significant rotation often require traditional braces. An honest orthodontist will tell you which is better for your case." },
+      { q: "How many aligners will my treatment require, and what's the estimated timeline?", hint: "Simple cases: 6–12 months, 20–30 aligners. Moderate: 12–18 months, 30–50 aligners. Complex: 18–24+ months. Providers who promise unusually short timelines for complex cases should be questioned." },
+      { q: "What happens if I lose or break an aligner?", hint: "You'll typically need to pay for replacement ($50–150) and may step back or forward in your series. Ask about their process upfront — some practices include replacements, others charge each time." },
+      { q: "Will I need attachments on my teeth?", hint: "Small tooth-colored bumps (attachments) help aligners grip for complex movements. They're common and necessary for many cases. A provider who never uses attachments may be oversimplifying complex movements." },
+    ],
     prices: [{ loc: "Los Angeles", price: "$4,000 – $8,000" }, { loc: "US average", price: "$3,000 – $7,000" }, { loc: "Invisalign Lite (minor cases)", price: "$2,000 – $4,000" }],
   },
   "dental-bonding": {
@@ -183,7 +239,12 @@ export const treatments: Record<string, {
       { q: "It lasts as long as veneers", a: "Bonding typically lasts 3–10 years versus 10–20 for porcelain veneers, and is more prone to chipping and staining." },
       { q: "It's a permanent fix", a: "Bonding is considered reversible since no enamel is removed, but the resin will need replacement over time." },
     ],
-    questions: ["Is bonding or a veneer more appropriate for my specific concern?", "What shade of resin will best match my surrounding teeth?", "How durable will the bonding be given my bite?", "How do I care for bonded teeth to maximize longevity?"],
+    questions: [
+      { q: "Is bonding or a veneer more appropriate for my specific concern?", hint: "Bonding is reversible, faster, and cheaper — ideal for small chips or gaps. Veneers are more durable, stain-resistant, and natural-looking — better for significant cosmetic changes. Choose based on the extent of your concern, not just cost." },
+      { q: "What shade of resin will best match my surrounding teeth?", hint: "Ask to see the shade guide selection in your mouth before bonding. Resin can be slightly opaque compared to natural enamel — a skilled dentist layers translucent and opaque shades to mimic natural tooth structure." },
+      { q: "How durable will the bonding be given my bite?", hint: "If you have a heavy bite, grind your teeth, or bite your nails, bonding is more prone to chipping. Ask if a night guard is recommended and whether bonding is appropriate for the specific tooth given your habits." },
+      { q: "How do I care for bonded teeth to maximize longevity?", hint: "Avoid biting hard objects (ice, pen caps, hard candy). Staining foods (coffee, tea, red wine) affect bonding more than natural enamel — rinse after consuming them. Bonding may need polishing or replacement every 3–10 years." },
+    ],
     prices: [{ loc: "Per tooth (LA)", price: "$300 – $600" }, { loc: "US average per tooth", price: "$200 – $500" }, { loc: "Multiple teeth", price: "$1,000 – $3,000" }],
   },
   "bbl-ipl": {
@@ -197,7 +258,12 @@ export const treatments: Record<string, {
       { q: "It's the same as laser", a: "IPL/BBL uses broad-spectrum light across multiple wavelengths, while lasers use a single focused wavelength. Different tools for different concerns." },
       { q: "It's too painful", a: "Most patients describe it as a rubber band snap. Cooling systems and topical numbing make it very manageable." },
     ],
-    questions: ["What device do you use — BBL, IPL, or another brand?", "Is my skin tone a good candidate, and what's the risk of pigment changes?", "How many sessions do you recommend for my specific concerns?", "What sun protection protocol do I need before and after?"],
+    questions: [
+      { q: "What device do you use — BBL, IPL, or another brand?", hint: "Sciton BBL is the gold standard with the most research, including studies showing anti-aging effects at the cellular level. Standard IPL varies widely by brand. Ask specifically about the device model and whether it has adjustable wavelength filters." },
+      { q: "Is my skin tone a good candidate, and what's the risk of pigment changes?", hint: "Fitzpatrick skin types I–III (lighter skin) are ideal candidates. Types IV–VI carry higher risk of post-inflammatory hyperpigmentation. A provider should assess your skin tone carefully and may do a test spot first." },
+      { q: "How many sessions do you recommend for my specific concerns?", hint: "Most protocols recommend 3–5 sessions spaced 3–4 weeks apart. Annual or bi-annual maintenance sessions keep results consistent. Single sessions provide improvement but a series produces significantly better results." },
+      { q: "What sun protection protocol do I need before and after?", hint: "Avoid sun exposure and self-tanner for 2–4 weeks before treatment. SPF 30+ every day after treatment is non-negotiable. Tanned skin dramatically increases the risk of burns and pigmentation — a provider should screen for this." },
+    ],
     prices: [{ loc: "Per session (LA)", price: "$400 – $900" }, { loc: "Package of 3 (LA)", price: "$1,000 – $2,500" }, { loc: "US average per session", price: "$300 – $700" }],
   },
   "fraxel-laser": {
@@ -211,7 +277,12 @@ export const treatments: Record<string, {
       { q: "Recovery is unbearable", a: "Skin feels sunburned for 1–2 days and peels for 3–5 days. Most people return to normal activities within a week." },
       { q: "It's the same as ablative laser resurfacing", a: "Fraxel is fractional — it treats zones of skin while leaving others intact, producing faster healing than fully ablative lasers." },
     ],
-    questions: ["Which Fraxel setting do you recommend — Restore or Repair?", "How many sessions do you suggest for my concerns?", "What's the risk of pigment changes for my skin tone?", "What skincare routine do I need before and after?"],
+    questions: [
+      { q: "Which Fraxel setting do you recommend — Restore or Repair?", hint: "Fraxel Restore (non-ablative) has less downtime (3–5 days) and addresses texture and mild wrinkles. Fraxel Repair (ablative CO2) is more aggressive with 7–10 days downtime but better results for deeper lines and scarring. The choice depends on your goals and downtime tolerance." },
+      { q: "How many sessions do you suggest for my concerns?", hint: "Restore typically requires 3–5 sessions. Repair usually 1–2. More sessions at lower settings is generally safer than one aggressive treatment, especially for first-time patients." },
+      { q: "What's the risk of pigment changes for my skin tone?", hint: "Higher Fitzpatrick skin types (IV–VI) carry significant hyperpigmentation risk with Fraxel. A provider should discuss this honestly and may recommend alternative treatments or conservative settings with a test patch." },
+      { q: "What skincare routine do I need before and after?", hint: "Before: discontinue retinoids, acids, and vitamin C 1–2 weeks prior. Hydroquinone may be prescribed preventatively for darker skin. After: gentle cleanser, growth factor serum, heavy moisturizer, and strict SPF. Ask for a written protocol." },
+    ],
     prices: [{ loc: "Per session (LA)", price: "$1,000 – $2,500" }, { loc: "US average per session", price: "$800 – $2,000" }, { loc: "Series of 3", price: "$2,500 – $6,000" }],
   },
   "clear-brilliant": {
@@ -224,7 +295,11 @@ export const treatments: Record<string, {
       { q: "It's as effective as Fraxel", a: "Clear + Brilliant uses lower energy and is designed for maintenance, not correction. Think of it as a tune-up versus a full renovation." },
       { q: "Results are immediate", a: "Skin glows right after but texture and tone improvements develop over 2–4 weeks as collagen remodels." },
     ],
-    questions: ["Is Clear + Brilliant strong enough for my concerns, or should I do Fraxel?", "How many sessions do you recommend as a starting point?", "Can I combine this with other treatments in the same visit?"],
+    questions: [
+      { q: "Is Clear + Brilliant strong enough for my concerns, or should I do Fraxel?", hint: "Clear + Brilliant is ideal for maintenance and early prevention. If you have significant sun damage, acne scarring, or deeper wrinkles, Fraxel or other more aggressive treatments will produce better results. An honest provider will tell you if you need more." },
+      { q: "How many sessions do you recommend as a starting point?", hint: "A series of 4–6 sessions spaced 2–4 weeks apart produces best initial results, followed by quarterly maintenance. Single sessions are beneficial but the cumulative effect of a series is significantly more noticeable." },
+      { q: "Can I combine this with other treatments in the same visit?", hint: "Clear + Brilliant is often combined with injectables, PRP, or hydrating treatments in the same session. Ask what combinations they recommend for your specific goals — combination approaches often produce synergistic results." },
+    ],
     prices: [{ loc: "Per session (LA)", price: "$300 – $600" }, { loc: "Package of 4", price: "$1,000 – $2,000" }, { loc: "US average per session", price: "$250 – $500" }],
   },
   "dysport": {
@@ -237,7 +312,11 @@ export const treatments: Record<string, {
       { q: "Dysport and Botox are identical", a: "Both are botulinum toxin type A but different formulations. Dysport diffuses more, making it better for larger areas like the forehead; Botox stays more localized." },
       { q: "Units are the same between products", a: "Dysport units are not equivalent to Botox units — typically 2.5–3 Dysport units equal 1 Botox unit. Don't compare prices by unit alone." },
     ],
-    questions: ["Why do you recommend Dysport over Botox for my concerns?", "How many units do you recommend, and how does that translate to Botox units?", "How quickly will I see results, and how long should they last?"],
+    questions: [
+      { q: "Why do you recommend Dysport over Botox for my concerns?", hint: "Dysport diffuses more widely, making it well-suited for larger areas like the forehead. Botox is more localized, better for precision areas like crow's feet. If a provider uses only one product for all areas without explanation, ask why." },
+      { q: "How many units do you recommend, and how does that translate to Botox units?", hint: "The conversion is roughly 2.5–3 Dysport units = 1 Botox unit. A typical forehead in Dysport uses 50–75 units. Don't compare prices by unit count alone — always ask the Botox-equivalent dose to compare fairly." },
+      { q: "How quickly will I see results, and how long should they last?", hint: "Dysport often kicks in within 2–3 days (faster than Botox's 5–7 days). Duration is similar at 3–4 months. Some patients find one lasts longer than the other — it's worth trying both to see which you prefer." },
+    ],
     prices: [{ loc: "Per unit (LA)", price: "$5 – $8 / unit" }, { loc: "Forehead (50–70 units)", price: "$250 – $550" }, { loc: "US average per unit", price: "$4 – $7" }],
   },
   "neck-lift": {
@@ -250,7 +329,12 @@ export const treatments: Record<string, {
       { q: "A neck lift and face lift are the same", a: "They're related but distinct procedures. A neck lift focuses on the neck; a face lift addresses the mid and lower face. Many surgeons perform them together." },
       { q: "Results look unnatural", a: "Modern neck lift techniques create natural contours rather than the 'tight' look associated with older approaches." },
     ],
-    questions: ["Do you recommend a neck lift alone or combined with a face lift for my concerns?", "What technique do you use, and how will you address the platysma bands?", "What are my realistic risks given my health history?"],
+    questions: [
+      { q: "Do you recommend a neck lift alone or combined with a face lift?", hint: "Isolated neck lifts work well for patients whose face is still relatively youthful. If you also have significant jowling or lower face laxity, combining with a face lift produces more harmonious results. A surgeon should explain their recommendation based on your specific anatomy." },
+      { q: "What technique do you use, and how will you address the platysma bands?", hint: "The platysma is the neck muscle that creates visible bands. Platysmaplasty (surgical tightening or cutting of the platysma) is necessary for significant banding. Ask specifically how they plan to address this if bands are a concern." },
+      { q: "What are my realistic risks given my health history?", hint: "Key risks: hematoma, nerve injury (particularly the marginal mandibular nerve affecting smile), infection, poor healing, and asymmetry. Smokers face significantly higher complication rates. Demand an honest, complete risk discussion." },
+      { q: "How will you manage my scars, and where will incisions be placed?", hint: "Incisions are typically behind the ears and under the chin. Ask to see examples of healed scars from their patients. Good technique places scars in natural creases and minimizes tension during healing." },
+    ],
     prices: [{ loc: "Los Angeles", price: "$8,000 – $20,000" }, { loc: "US average", price: "$6,000 – $15,000" }, { loc: "Combined with face lift", price: "$18,000 – $40,000" }],
   },
   "rhinoplasty": {
@@ -264,7 +348,12 @@ export const treatments: Record<string, {
       { q: "Rhinoplasty is purely cosmetic", a: "Many rhinoplasties include functional correction of a deviated septum or other structural issues that affect breathing." },
       { q: "Revision is easy if you don't like it", a: "Revision rhinoplasty is significantly more complex than primary surgery. Choosing the right surgeon the first time is critical." },
     ],
-    questions: ["Can you show me computer imaging of potential results?", "What approach do you recommend — open or closed rhinoplasty?", "How many rhinoplasties do you perform per year?", "What are the realistic limitations for my specific nose structure?"],
+    questions: [
+      { q: "Can you show me computer imaging of potential results?", hint: "Digital imaging is a communication tool, not a guarantee. Ask the surgeon to show you conservative, realistic changes rather than dramatic transformations. Be wary of surgeons who show unrealistically dramatic imaging — it sets false expectations." },
+      { q: "What approach do you recommend — open or closed rhinoplasty?", hint: "Open rhinoplasty provides better visualization for complex changes but leaves a small scar under the nose. Closed rhinoplasty leaves no visible scar but is more technically limiting. The right choice depends on the complexity of your case." },
+      { q: "How many rhinoplasties do you perform per year?", hint: "Rhinoplasty is among the most technically demanding procedures in plastic surgery. Look for surgeons who perform 100+ per year and specialize in rhinoplasty. Ask what percentage of their practice is rhinoplasty." },
+      { q: "What are the realistic limitations for my specific nose structure?", hint: "Thick skin limits tip refinement; thin skin shows every irregularity. Ethnic rhinoplasty requires specific expertise. A surgeon who tells you anything is possible without discussing limitations is not being honest with you." },
+    ],
     prices: [{ loc: "Los Angeles", price: "$10,000 – $25,000" }, { loc: "US average", price: "$8,000 – $20,000" }, { loc: "Revision rhinoplasty", price: "$12,000 – $30,000" }],
   },
   "brow-lift": {
@@ -277,7 +366,12 @@ export const treatments: Record<string, {
       { q: "A brow lift always looks surprised", a: "Modern endoscopic techniques allow precise, natural elevation without the 'perpetually surprised' look of older approaches." },
       { q: "It's the same as an eyelid lift", a: "They address different structures. A brow lift raises the brow position; blepharoplasty removes excess eyelid skin. Both may be needed for full rejuvenation." },
     ],
-    questions: ["Do I need a brow lift, eyelid surgery, or both?", "Which technique do you recommend — endoscopic, temporal, or direct?", "How will this affect my hairline?"],
+    questions: [
+      { q: "Do I need a brow lift, eyelid surgery, or both?", hint: "This distinction matters enormously. A drooping brow causing hooded upper lids needs a brow lift — upper blepharoplasty alone will make it worse. A surgeon should photograph your brows in their natural relaxed position to assess which procedure addresses the root cause." },
+      { q: "Which technique do you recommend — endoscopic, temporal, or direct?", hint: "Endoscopic is most common with small incisions and fastest recovery. Temporal lift targets the outer brow. Direct lift (scar above brow) is reserved for specific cases. Ask why they recommend their approach for your anatomy." },
+      { q: "How will this affect my hairline?", hint: "Coronal brow lifts (older technique) can significantly raise the hairline — problematic if your hairline is already high. Endoscopic techniques have less hairline effect. Discuss your current hairline position and what change is expected." },
+      { q: "What's the expected amount of brow elevation?", hint: "Overcorrection ('surprised look') is a risk with brow lifts. The goal is 3–5mm of elevation for most patients. Ask to see before-and-afters of their patients at rest (not smiling) — this reveals the natural result." },
+    ],
     prices: [{ loc: "Los Angeles", price: "$5,000 – $12,000" }, { loc: "US average", price: "$4,000 – $10,000" }, { loc: "Combined with blepharoplasty", price: "$8,000 – $18,000" }],
   },
 };
@@ -363,13 +457,23 @@ export function TreatmentDetail({ slug, matchScore }: { slug: string; matchScore
       <div style={{ height: "0.5px", background: "#e8e6e1", margin: "0 16px 20px" }} />
 
       <div style={{ padding: "0 16px 20px" }}>
-        <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.8px", textTransform: "uppercase", color: "#a09d98", marginBottom: 10 }}>Questions to ask your provider</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-          {t.questions.map((q, i) => (
-            <div key={i} style={{ display: "flex", gap: 10, padding: "10px 12px", background: "#f7f6f3", border: "0.5px solid #e8e6e1", borderRadius: 12 }}>
-              <div style={{ width: 20, height: 20, borderRadius: "50%", background: "#eff6ff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 500, color: "#2563eb", flexShrink: 0 }}>{i + 1}</div>
-              <span style={{ fontSize: 12, color: "#6b6863", lineHeight: 1.6 }}>{q}</span>
-            </div>
+        <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.8px", textTransform: "uppercase", color: "#a09d98", marginBottom: 4 }}>Questions to ask your provider</div>
+        <p style={{ fontSize: 12, color: "#a09d98", marginBottom: 12, lineHeight: 1.5 }}>Tap each question to see what a good answer looks like.</p>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {t.questions.map((item, i) => (
+            <details key={i} style={{ background: "#f7f6f3", border: "0.5px solid #e8e6e1", borderRadius: 12, overflow: "hidden" }}>
+              <summary style={{ display: "flex", gap: 10, padding: "12px 14px", cursor: "pointer", listStyle: "none", alignItems: "flex-start" }}>
+                <div style={{ width: 22, height: 22, borderRadius: "50%", background: "#eff6ff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 500, color: "#2563eb", flexShrink: 0, marginTop: 1 }}>{i + 1}</div>
+                <span style={{ fontSize: 13, color: "#1a1917", lineHeight: 1.5, flex: 1, fontWeight: 500 }}>{item.q}</span>
+                <span style={{ color: "#a09d98", fontSize: 14, flexShrink: 0 }}>▾</span>
+              </summary>
+              <div style={{ padding: "0 14px 14px 46px" }}>
+                <div style={{ background: "#eff6ff", border: "0.5px solid #bfdbfe", borderRadius: 10, padding: "10px 12px" }}>
+                  <div style={{ fontSize: 10, fontWeight: 600, color: "#2563eb", letterSpacing: "0.5px", textTransform: "uppercase", marginBottom: 5 }}>💡 What a good answer looks like</div>
+                  <p style={{ fontSize: 12, color: "#1e40af", lineHeight: 1.6 }}>{item.hint}</p>
+                </div>
+              </div>
+            </details>
           ))}
         </div>
       </div>
