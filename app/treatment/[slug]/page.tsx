@@ -94,6 +94,62 @@ const treatments: Record<string, {
     questions: ["Which RF microneedling device do you use (Morpheus8, Vivace, Potenza)?", "What depth and energy settings do you plan to use for my skin concerns?", "How does this compare to Thermage or laser for my specific concerns?", "What skincare should I avoid before and after treatment?"],
     prices: [{ loc: "Los Angeles", price: "$800 – $1,800 / session" }, { loc: "US average", price: "$700 – $1,500 / session" }, { loc: "Package of 3", price: "$2,000 – $4,500" }],
   },
+  "face-lift": {
+    name: "Face Lift", type: "Surgical · Rhytidectomy", icon: "✚", colorBg: "#fdf2f8",
+    downtime: "2–4 weeks", sessions: "1 procedure", resultsLast: "7–10 years",
+    what: "A face lift (rhytidectomy) surgically repositions and tightens the underlying facial muscles and removes excess skin to address significant laxity, deep jowls, and neck sagging. It provides the most dramatic and longest-lasting results of any facial rejuvenation procedure.",
+    good: ["Those with significant skin laxity, jowling, or neck sagging that non-surgical treatments cannot adequately address", "Patients in good overall health, non-smokers, with realistic expectations", "Ages 45–70 who want long-lasting results and are willing to undergo recovery"],
+    bad: ["Anyone who cannot tolerate general anesthesia or has significant health risks", "Smokers — smoking severely impairs healing and increases complication risk", "Those expecting perfection or whose skin quality is very poor"],
+    myths: [
+      { q: "Face lifts look obvious and 'pulled'", a: "Modern techniques reposition deeper tissue rather than just pulling skin. A skilled surgeon creates natural-looking results that don't look 'done.'" },
+      { q: "Results last forever", a: "A face lift addresses existing laxity but doesn't stop aging. Most patients enjoy results for 7–10 years before considering revision." },
+      { q: "Recovery is unbearable", a: "Most patients are social again within 2–3 weeks. Bruising and swelling resolve significantly by 10–14 days. Final results are visible at 3–6 months." },
+    ],
+    questions: ["Are you board-certified in plastic surgery, and how many face lifts do you perform annually?", "What technique do you use — SMAS, deep plane, or composite?", "Will I need general anesthesia or sedation, and where will surgery be performed?", "What are the realistic risks for someone with my anatomy and health history?"],
+    prices: [{ loc: "Los Angeles", price: "$15,000 – $35,000" }, { loc: "US average", price: "$12,000 – $28,000" }, { loc: "Includes anesthesia & facility", price: "Usually bundled" }],
+  },
+  "blepharoplasty": {
+    name: "Blepharoplasty", type: "Surgical · Eyelid Surgery", icon: "✚", colorBg: "#fdf2f8",
+    downtime: "1–2 weeks", sessions: "1 procedure", resultsLast: "5–10 years",
+    what: "Blepharoplasty removes excess skin, fat, and muscle from the upper and/or lower eyelids. It addresses hooded upper lids, under-eye bags, and puffiness that make you look tired — often producing dramatic rejuvenation with relatively modest downtime.",
+    good: ["Those with hooded upper eyelids that impair vision or create a tired appearance", "People with persistent under-eye bags unresponsive to fillers or skincare", "Good candidates are generally healthy non-smokers with realistic expectations"],
+    bad: ["Those with dry eye syndrome — surgery can worsen symptoms", "Anyone with uncontrolled thyroid disease or glaucoma", "People expecting eyelid surgery to address dark circles caused by pigmentation (surgery won't fix this)"],
+    myths: [
+      { q: "It removes dark circles", a: "Blepharoplasty removes bags and excess skin, but dark circles caused by pigmentation or thin skin are a separate issue not addressed by surgery." },
+      { q: "Both eyes will look identical after", a: "Natural facial asymmetry means eyes will be improved but not perfectly symmetrical. A skilled surgeon works to maximize evenness." },
+      { q: "Recovery is long and painful", a: "Most patients recover in 1–2 weeks. Bruising and swelling are manageable. Cold compresses and head elevation significantly speed recovery." },
+    ],
+    questions: ["Do you recommend upper, lower, or both — and why based on my anatomy?", "Will you use local or general anesthesia?", "Do I have any risk factors for dry eye or other complications?", "Can I see before-and-after photos of patients with similar eye shapes?"],
+    prices: [{ loc: "Los Angeles (both lids)", price: "$6,000 – $15,000" }, { loc: "Upper lids only", price: "$3,000 – $7,000" }, { loc: "Lower lids only", price: "$4,000 – $9,000" }],
+  },
+  "porcelain-veneers": {
+    name: "Porcelain Veneers", type: "Dental · Cosmetic", icon: "◻", colorBg: "#f0f9ff",
+    downtime: "Minimal", sessions: "2–3 visits", resultsLast: "10–20 years",
+    what: "Porcelain veneers are ultra-thin ceramic shells bonded to the front surface of teeth to correct color, shape, size, or spacing. They provide dramatic smile transformations and are highly stain-resistant, though they require permanent removal of a small amount of enamel.",
+    good: ["Those with discolored teeth unresponsive to whitening", "People with chipped, worn, or slightly misaligned teeth wanting a complete smile transformation", "Those committed to good oral hygiene and avoiding habits that damage veneers"],
+    bad: ["People with significant tooth decay or gum disease — these must be treated first", "Those with teeth-grinding (bruxism) without a night guard — veneers can chip", "Anyone wanting a reversible option — enamel removal is permanent"],
+    myths: [
+      { q: "Veneers look fake and too white", a: "Modern veneers are customized to match natural tooth translucency and color. They can look completely natural if designed well." },
+      { q: "They don't require maintenance", a: "Veneers last longer with good oral hygiene, regular dental visits, and avoiding biting hard objects. Night guards are recommended for grinders." },
+      { q: "They're the same as crowns", a: "Veneers cover only the front surface and require minimal enamel removal. Crowns cover the entire tooth and are used for structural reasons." },
+    ],
+    questions: ["How much enamel will you need to remove, and can I see a digital mock-up before committing?", "What brand of porcelain do you use, and why?", "Do I need any preparatory work (whitening, gum contouring) before veneers?", "What's your warranty or touch-up policy if a veneer chips or debonds?"],
+    prices: [{ loc: "Per tooth (LA)", price: "$1,500 – $2,500" }, { loc: "Full set of 8 (LA)", price: "$12,000 – $20,000" }, { loc: "US average per tooth", price: "$1,000 – $2,000" }],
+  },
+  "kybella": {
+    name: "Kybella", type: "Injectable · Deoxycholic Acid", icon: "💉", colorBg: "#eff6ff",
+    downtime: "1–2 weeks", sessions: "2–4 sessions", resultsLast: "Permanent",
+    what: "Kybella (deoxycholic acid) is an injectable that permanently destroys fat cells under the chin (submental fat). Once destroyed, those cells cannot store fat again. It's the only FDA-approved injectable for double chin reduction.",
+    good: ["Those with moderate submental fat ('double chin') bothered by the appearance", "People who want a non-surgical alternative to liposuction for the chin area", "Those willing to tolerate significant swelling for 1–2 weeks post-treatment"],
+    bad: ["Those with very loose neck skin — Kybella removes fat but doesn't tighten skin; may worsen laxity", "Anyone with infections or difficulty swallowing", "People wanting immediate results — full effect takes 3–6 months across multiple sessions"],
+    myths: [
+      { q: "One session is enough", a: "Most patients need 2–4 sessions spaced 4–6 weeks apart. Each session destroys more fat cells progressively." },
+      { q: "The swelling means it's not working", a: "Significant swelling (sometimes called 'Kybella bullfrog') is normal and expected. It indicates the fat cells are being destroyed." },
+      { q: "Results are the same as liposuction", a: "Kybella is effective for moderate fat but liposuction can remove more fat in one session with more precise contouring." },
+    ],
+    questions: ["How many vials per session do you recommend for my chin, and how many sessions total?", "What can I expect in terms of swelling and timeline?", "Is Kybella right for me or would neck liposuction give better results?", "Are there any nerve risks I should be aware of?"],
+    prices: [{ loc: "Per session (LA)", price: "$1,200 – $2,500" }, { loc: "Full treatment (2-4 sessions)", price: "$2,400 – $8,000" }, { loc: "US average per session", price: "$1,000 – $2,000" }],
+  },
 };
 
 export default function TreatmentPage({ params, searchParams }: { params: { slug: string }, searchParams: { match?: string } }) {
@@ -107,6 +163,18 @@ export default function TreatmentPage({ params, searchParams }: { params: { slug
         <Link href="/" style={{ width: 34, height: 34, borderRadius: "50%", border: "0.5px solid #d0cdc7", display: "flex", alignItems: "center", justifyContent: "center", color: "#1a1917", background: "white", textDecoration: "none", fontSize: 16, flexShrink: 0 }}>←</Link>
         <button style={{ width: 34, height: 34, borderRadius: "50%", border: "0.5px solid #e8e6e1", background: "white", cursor: "pointer", fontSize: 16 }}>♡</button>
       </div>
+
+      {t.type.includes("Surgical") && (
+        <div style={{ margin: "0 16px 16px", background: "#fdf2f8", border: "1.5px solid #f0abfc", borderRadius: 12, padding: "14px 16px" }}>
+          <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+            <span style={{ fontSize: 20, flexShrink: 0 }}>⚠️</span>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#86198f", marginBottom: 4 }}>Surgical procedure — higher risk</div>
+              <div style={{ fontSize: 12, color: "#a21caf", lineHeight: 1.7 }}>All information on this page is for general reference only and does not constitute medical advice. Surgical procedures carry significant risks including infection, scarring, nerve damage, anesthesia complications, and unpredictable outcomes. Results vary greatly by surgeon skill, technique, and individual factors. Always consult multiple board-certified surgeons before making any decision. AQ is not responsible for any outcomes resulting from procedures.</div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div style={{ margin: "0 16px 20px", background: t.colorBg, borderRadius: 18, padding: "18px 16px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
