@@ -145,12 +145,24 @@ export default function ScanPage() {
       </div>
 
       {/* Camera or placeholder */}
-      <div style={{ margin: "0 16px 16px", borderRadius: 20, background: "#f7f6f3", border: "0.5px solid #e8e6e1", overflow: "hidden", position: "relative" }}>
+      <div style={{ margin: "0 16px 16px", borderRadius: 20, background: "#000", border: "0.5px solid #e8e6e1", overflow: "hidden", position: "relative", minHeight: 300 }}>
         {cameraActive ? (
-          <div style={{ position: "relative" }}>
-            <video ref={videoRef} autoPlay playsInline muted style={{ width: "100%", height: 260, objectFit: "cover", display: "block", transform: "scaleX(-1)" }} />
+          <div style={{ position: "relative", height: 300, background: "#000" }}>
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted
+              style={{
+                position: "absolute", top: 0, left: 0,
+                width: "100%", height: "100%",
+                objectFit: "cover",
+                transform: "scaleX(-1)",
+                display: "block",
+              }}
+            />
             <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
-              <div style={{ width: current.guide === "front" ? 130 : 110, height: current.guide === "front" ? 165 : 155, borderRadius: current.guide === "front" ? "50% 50% 45% 45%" : current.guide === "left" ? "50% 30% 35% 50%" : "30% 50% 50% 35%", border: "2px solid rgba(255,255,255,0.7)", boxShadow: "0 0 0 1000px rgba(0,0,0,0.3)" }} />
+              <div style={{ width: current.guide === "front" ? 140 : 120, height: current.guide === "front" ? 175 : 160, borderRadius: current.guide === "front" ? "50% 50% 45% 45%" : current.guide === "left" ? "50% 30% 35% 50%" : "30% 50% 50% 35%", border: "2px solid rgba(255,255,255,0.8)", boxShadow: "0 0 0 1000px rgba(0,0,0,0.35)" }} />
             </div>
           </div>
         ) : (
