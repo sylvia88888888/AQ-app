@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import Link from "next/link";
 
 const allTreatments = [
@@ -30,22 +32,45 @@ const typeColor = (type: string) => {
   return { bg: "#fffbeb", text: "#92400e" };
 };
 
+const categories = ["All", "Energy", "Injectable", "Surgical", "Dental"];
+
 export default function ExplorePage() {
+  const [active, setActive] = useState("All");
+
+  const filtered = active === "All"
+    ? allTreatments
+    : allTreatments.filter(t => t.type === active);
+
   return (
     <div style={{ paddingBottom: 80 }}>
       <div style={{ padding: "52px 16px 16px" }}>
         <div style={{ fontSize: 22, fontWeight: 500, letterSpacing: -0.5 }}>Explore</div>
-        <div style={{ fontSize: 13, color: "#a09d98", marginTop: 4 }}>All {allTreatments.length} treatments in AQ</div>
+        <div style={{ fontSize: 13, color: "#a09d98", marginTop: 4 }}>
+          {filtered.length} treatment{filtered.length !== 1 ? "s" : ""}
+          {active !== "All" ? ` · ${active}` : " in AQ"}
+        </div>
       </div>
 
+      {/* Category pills */}
       <div style={{ padding: "0 16px 20px", display: "flex", gap: 8, overflowX: "auto" }}>
-        {["All", "Energy", "Injectable", "Surgical", "Dental"].map((c, i) => (
-          <div key={c} style={{ padding: "7px 16px", borderRadius: 20, background: i === 0 ? "#1a1917" : "#f7f6f3", color: i === 0 ? "white" : "#6b6863", fontSize: 13, fontWeight: 500, whiteSpace: "nowrap", cursor: "pointer", flexShrink: 0 }}>{c}</div>
+        {categories.map(c => (
+          <div
+            key={c}
+            onClick={() => setActive(c)}
+            style={{
+              padding: "8px 18px", borderRadius: 20, flexShrink: 0, cursor: "pointer", transition: "all 0.15s",
+              background: active === c ? "#1a1917" : "#f7f6f3",
+              color: active === c ? "white" : "#6b6863",
+              fontSize: 13, fontWeight: active === c ? 500 : 400,
+              border: active === c ? "none" : "0.5px solid #e8e6e1",
+            }}
+          >{c}</div>
         ))}
       </div>
 
+      {/* Treatment list */}
       <div style={{ padding: "0 16px" }}>
-        {allTreatments.map(t => {
+        {filtered.map(t => {
           const tc = typeColor(t.type);
           return (
             <Link key={t.slug} href={`/treatment/${t.slug}`} style={{ textDecoration: "none" }}>

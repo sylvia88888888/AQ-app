@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export const treatments: Record<string, {
   name: string; type: string; icon: string; colorBg: string;
@@ -380,11 +382,41 @@ export function TreatmentDetail({ slug, matchScore }: { slug: string; matchScore
   const t = treatments[slug];
   if (!t) return null;
 
+  const [saved, setSaved] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+
+  useEffect(() => {
+    const savedList = JSON.parse(localStorage.getItem("aq-saved") || "[]");
+    setSaved(savedList.includes(slug));
+  }, [slug]);
+
+  const toggleSave = () => {
+    const savedList: string[] = JSON.parse(localStorage.getItem("aq-saved") || "[]");
+    let newList;
+    if (saved) {
+      newList = savedList.filter((s: string) => s !== slug);
+      setSaved(false);
+    } else {
+      newList = [...savedList, slug];
+      setSaved(true);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2000);
+    }
+    localStorage.setItem("aq-saved", JSON.stringify(newList));
+  };
+
   return (
     <div style={{ paddingBottom: 40 }}>
+      {showToast && (
+        <div style={{ position: "fixed", top: 60, left: "50%", transform: "translateX(-50%)", background: "#1a1917", color: "white", padding: "10px 20px", borderRadius: 20, fontSize: 13, fontWeight: 500, zIndex: 100, whiteSpace: "nowrap" }}>
+          ♥ Saved to your list
+        </div>
+      )}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "52px 16px 14px" }}>
         <Link href="/" style={{ width: 34, height: 34, borderRadius: "50%", border: "0.5px solid #d0cdc7", display: "flex", alignItems: "center", justifyContent: "center", color: "#1a1917", background: "white", textDecoration: "none", fontSize: 16, flexShrink: 0 }}>←</Link>
-        <button style={{ width: 34, height: 34, borderRadius: "50%", border: "0.5px solid #e8e6e1", background: "white", cursor: "pointer", fontSize: 16 }}>♡</button>
+        <button onClick={toggleSave} style={{ width: 34, height: 34, borderRadius: "50%", border: `1.5px solid ${saved ? "#2563eb" : "#e8e6e1"}`, background: saved ? "#eff6ff" : "white", cursor: "pointer", fontSize: 16, color: saved ? "#2563eb" : "#a09d98", transition: "all 0.15s" }}>
+          {saved ? "♥" : "♡"}
+        </button>
       </div>
 
       {t.isSurgical && (
