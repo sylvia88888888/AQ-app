@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -19,20 +19,25 @@ export default function ScanPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
+  // Attach stream to video whenever camera becomes active
+  useEffect(() => {
+    if (cameraActive && streamRef.current && videoRef.current) {
+      videoRef.current.srcObject = streamRef.current;
+      videoRef.current.play().catch(() => {});
+    }
+  }, [cameraActive]);
+
   const startCamera = useCallback(async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } }
+        video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false,
       });
       streamRef.current = stream;
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.play();
-      }
       setCameraActive(true);
       setCameraError("");
-    } catch (err) {
-      setCameraError("Camera access denied. Please allow camera permission and try again.");
+    } catch {
+      setCameraError("Camera access denied. Please allow camera permission in your browser settings and try again.");
     }
   }, []);
 
@@ -41,27 +46,27 @@ export default function ScanPage() {
       streamRef.current.getTracks().forEach(t => t.stop());
       streamRef.current = null;
     }
+    if (videoRef.current) videoRef.current.srcObject = null;
     setCameraActive(false);
   }, []);
 
   const takePhoto = useCallback(() => {
     if (!videoRef.current) return;
     const canvas = document.createElement("canvas");
-    canvas.width = videoRef.current.videoWidth;
-    canvas.height = videoRef.current.videoHeight;
+    canvas.width = videoRef.current.videoWidth || 640;
+    canvas.height = videoRef.current.videoHeight || 480;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     ctx.drawImage(videoRef.current, 0, 0);
-    const dataUrl = canvas.toDataURL("image/jpeg", 0.8);
+    const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
     const newPhotos = [...photos, dataUrl];
     setPhotos(newPhotos);
-
     if (step < 2) {
       setStep(s => s + 1);
     } else {
       stopCamera();
       setAnalyzing(true);
-      setTimeout(() => router.push("/goal"), 3000);
+      setTimeout(() => router.push("/goal"), 2500);
     }
   }, [photos, step, stopCamera, router]);
 
@@ -77,29 +82,25 @@ export default function ScanPage() {
         setStep(s => s + 1);
       } else {
         setAnalyzing(true);
-        setTimeout(() => router.push("/goal"), 3000);
+        setTimeout(() => router.push("/goal"), 2500);
       }
     };
     reader.readAsDataURL(file);
+    e.target.value = "";
   }, [photos, step, router]);
 
   if (analyzing) return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "60px 24px" }}>
       <div style={{ display: "flex", gap: 10, marginBottom: 28 }}>
-        {photos.slice(0, 3).map((p, i) => (
-          <div key={i} style={{ width: 80, height: 96, borderRadius: "40px 40px 36px 36px", overflow: "hidden", border: "1.5px solid #2563eb" }}>
-            <img src={p} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
+        {[0,1,2].map(i => (
+          <div key={i} style={{ width: 80, height: 96, borderRadius: "40px 40px 36px 36px", overflow: "hidden", border: "1.5px solid #2563eb", background: "#f7f6f3" }}>
+            {photos[i] && <img src={photos[i]} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />}
           </div>
         ))}
       </div>
       <div style={{ fontSize: 17, fontWeight: 500, marginBottom: 8 }}>Analyzing your photos</div>
       <div style={{ fontSize: 14, color: "#a09d98", marginBottom: 32 }}>Cross-referencing all 3 angles…</div>
-      {[
-        ["✓", "3 photos received", "Done", "#15803d"],
-        ["✓", "Facial symmetry mapped", "Done", "#15803d"],
-        ["…", "Laxity and volume assessed", "Running", "#2563eb"],
-        ["○", "Matching treatments", "Waiting", "#a09d98"],
-      ].map(([icon, text, status, color], i) => (
+      {[["✓","3 photos received","Done","#15803d"],["✓","Facial symmetry mapped","Done","#15803d"],["…","Laxity and volume assessed","Running","#2563eb"],["○","Matching treatments","Waiting","#a09d98"]].map(([icon,text,status,color],i) => (
         <div key={i} style={{ width: "100%", display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", background: "#f7f6f3", borderRadius: 12, border: "0.5px solid #e8e6e1", marginBottom: 8 }}>
           <span style={{ color, fontSize: 16, width: 20, textAlign: "center" }}>{icon}</span>
           <span style={{ fontSize: 14, color: "#6b6863", flex: 1 }}>{text}</span>
@@ -144,35 +145,45 @@ export default function ScanPage() {
         </div>
       </div>
 
-      {/* Camera or placeholder */}
-      <div style={{ margin: "0 16px 16px", borderRadius: 20, background: "#000", border: "0.5px solid #e8e6e1", overflow: "hidden", position: "relative", minHeight: 300 }}>
-        {cameraActive ? (
-          <div style={{ position: "relative", height: 300, background: "#000" }}>
-            <video
-              ref={videoRef}
-              autoPlay
-              playsInline
-              muted
-              style={{
-                position: "absolute", top: 0, left: 0,
-                width: "100%", height: "100%",
-                objectFit: "cover",
-                transform: "scaleX(-1)",
-                display: "block",
-              }}
-            />
-            <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
-              <div style={{ width: current.guide === "front" ? 140 : 120, height: current.guide === "front" ? 175 : 160, borderRadius: current.guide === "front" ? "50% 50% 45% 45%" : current.guide === "left" ? "50% 30% 35% 50%" : "30% 50% 50% 35%", border: "2px solid rgba(255,255,255,0.8)", boxShadow: "0 0 0 1000px rgba(0,0,0,0.35)" }} />
-            </div>
+      {/* Camera area */}
+      <div style={{ margin: "0 16px 16px", borderRadius: 20, overflow: "hidden", background: "#111", position: "relative", height: 300 }}>
+        {/* Video always rendered, hidden when not active */}
+        <video
+          ref={videoRef}
+          autoPlay
+          playsInline
+          muted
+          style={{
+            position: "absolute", top: 0, left: 0,
+            width: "100%", height: "100%",
+            objectFit: "cover",
+            transform: "scaleX(-1)",
+            display: cameraActive ? "block" : "none",
+          }}
+        />
+
+        {/* Face guide overlay - only when camera active */}
+        {cameraActive && (
+          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
+            <div style={{
+              width: current.guide === "front" ? 145 : 125,
+              height: current.guide === "front" ? 178 : 162,
+              borderRadius: current.guide === "front" ? "50% 50% 45% 45%" : current.guide === "left" ? "50% 30% 35% 50%" : "30% 50% 50% 35%",
+              border: "2px solid rgba(255,255,255,0.85)",
+              boxShadow: "0 0 0 2000px rgba(0,0,0,0.4)",
+            }} />
           </div>
-        ) : (
-          <div style={{ height: 260, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+        )}
+
+        {/* Placeholder when no camera */}
+        {!cameraActive && (
+          <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             {photos[step] ? (
               <img src={photos[step]} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
             ) : (
               <>
-                <div style={{ fontSize: 48, marginBottom: 12, opacity: 0.3 }}>📷</div>
-                <div style={{ fontSize: 14, color: "#a09d98" }}>Tap below to take a photo</div>
+                <div style={{ fontSize: 52, opacity: 0.25, marginBottom: 10 }}>📷</div>
+                <div style={{ fontSize: 14, color: "rgba(255,255,255,0.5)" }}>Tap below to open camera</div>
               </>
             )}
           </div>
@@ -180,7 +191,7 @@ export default function ScanPage() {
       </div>
 
       {cameraError && (
-        <div style={{ margin: "0 16px 12px", padding: "12px 14px", background: "#fff1f2", border: "0.5px solid #fecdd3", borderRadius: 12, fontSize: 13, color: "#be123c" }}>
+        <div style={{ margin: "0 16px 12px", padding: "12px 14px", background: "#fff1f2", border: "0.5px solid #fecdd3", borderRadius: 12, fontSize: 13, color: "#be123c", lineHeight: 1.5 }}>
           {cameraError}
         </div>
       )}
@@ -190,19 +201,21 @@ export default function ScanPage() {
         {steps.map((s, i) => (
           <div key={s.label} style={{ flex: 1, height: 76, borderRadius: 12, overflow: "hidden", background: "#f7f6f3", border: i === step ? "1.5px solid #2563eb" : i < step ? "0.5px solid #2563eb" : "0.5px solid #e8e6e1", position: "relative" }}>
             {photos[i] ? (
-              <img src={photos[i]} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
+              <>
+                <img src={photos[i]} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
+                <div style={{ position: "absolute", top: 4, right: 4, width: 18, height: 18, borderRadius: "50%", background: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, color: "white" }}>✓</div>
+              </>
             ) : (
               <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 5 }}>
                 <span style={{ fontSize: 20, color: i <= step ? "#2563eb" : "#a09d98" }}>📷</span>
                 <span style={{ fontSize: 11, color: i <= step ? "#2563eb" : "#a09d98", fontWeight: i === step ? 500 : 400 }}>{s.label}</span>
               </div>
             )}
-            {photos[i] && <div style={{ position: "absolute", top: 4, right: 4, width: 18, height: 18, borderRadius: "50%", background: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, color: "white" }}>✓</div>}
           </div>
         ))}
       </div>
 
-      {/* Actions */}
+      {/* Action buttons */}
       <div style={{ padding: "0 16px", display: "flex", flexDirection: "column", gap: 10 }}>
         {cameraActive ? (
           <>
@@ -220,7 +233,7 @@ export default function ScanPage() {
             </button>
             <label style={{ width: "100%", padding: "14px", borderRadius: 13, background: "#f7f6f3", color: "#1a1917", fontSize: 14, fontWeight: 500, border: "0.5px solid #e8e6e1", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
               🖼 Upload from library
-              <input type="file" accept="image/*" onChange={uploadPhoto} style={{ display: "none" }} />
+              <input type="file" accept="image/*" capture="user" onChange={uploadPhoto} style={{ display: "none" }} />
             </label>
           </>
         )}
@@ -228,7 +241,7 @@ export default function ScanPage() {
 
       <div style={{ padding: "14px 16px 0", display: "flex", gap: 10 }}>
         <span style={{ fontSize: 14, flexShrink: 0 }}>🔒</span>
-        <span style={{ fontSize: 12, color: "#a09d98", lineHeight: 1.6 }}>Photos are processed locally and never stored or shared with third parties.</span>
+        <span style={{ fontSize: 12, color: "#a09d98", lineHeight: 1.6 }}>Photos are processed locally and never stored or shared.</span>
       </div>
     </div>
   );

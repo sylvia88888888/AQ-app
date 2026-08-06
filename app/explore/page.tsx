@@ -6,14 +6,21 @@ const allTreatments = [
   { name: "Thermage FLX", desc: "Skin tightening · RF energy", price: "$2k – $5k", type: "Energy", icon: "⚡", slug: "thermage-flx" },
   { name: "Ultherapy", desc: "Lifting · Ultrasound", price: "$3k – $6k", type: "Energy", icon: "〜", slug: "ultherapy" },
   { name: "RF Microneedling", desc: "Texture & tightening", price: "$800 – $1.8k", type: "Energy", icon: "⚡", slug: "rf-microneedling" },
+  { name: "Potenza", desc: "RF Microneedling · Advanced", price: "$800 – $2k", type: "Energy", icon: "⚡", slug: "potenza" },
   { name: "BBL / IPL", desc: "Pigmentation & redness", price: "$400 – $900", type: "Energy", icon: "☀", slug: "bbl-ipl" },
+  { name: "M22 IPL / ResurFX", desc: "Multi-platform · Tone & texture", price: "$400 – $1.8k", type: "Energy", icon: "☀", slug: "m22" },
+  { name: "Pico Toning", desc: "Pigmentation · Glass skin", price: "$300 – $600", type: "Energy", icon: "⚡", slug: "pico-toning" },
   { name: "Fraxel Laser", desc: "Resurfacing · Sun damage", price: "$1k – $2.5k", type: "Energy", icon: "⚡", slug: "fraxel-laser" },
   { name: "Clear + Brilliant", desc: "Maintenance · Glow", price: "$300 – $600", type: "Energy", icon: "⚡", slug: "clear-brilliant" },
+  { name: "HydraFacial", desc: "Hydration · Instant glow", price: "$200 – $400", type: "Energy", icon: "💧", slug: "hydrafacial" },
   { name: "Botox", desc: "Wrinkle relaxing · Neurotoxin", price: "$300 – $800", type: "Injectable", icon: "✦", slug: "botox" },
   { name: "Dysport", desc: "Wrinkle relaxing · Alternative", price: "$250 – $550", type: "Injectable", icon: "✦", slug: "dysport" },
   { name: "Filler", desc: "Volume & contour · HA", price: "$600 – $2k", type: "Injectable", icon: "💧", slug: "filler" },
   { name: "Sculptra", desc: "Collagen stimulator", price: "$800 – $1.8k", type: "Injectable", icon: "◉", slug: "sculptra" },
+  { name: "Skinbooster / 水光针", desc: "Deep hydration · Glass skin", price: "$600 – $1.2k", type: "Injectable", icon: "💧", slug: "skinbooster" },
+  { name: "PRP", desc: "Platelet-rich plasma · Natural", price: "$600 – $1.5k", type: "Injectable", icon: "💉", slug: "prp" },
   { name: "Kybella", desc: "Double chin · Fat dissolve", price: "$1.2k – $2.5k", type: "Injectable", icon: "💉", slug: "kybella" },
+  { name: "Thread Lift 线雕", desc: "Lifting · PDO threads", price: "$1.5k – $4k", type: "Injectable", icon: "◈", slug: "thread-lift" },
   { name: "Face Lift", desc: "Surgical · Full rejuvenation", price: "$15k – $35k", type: "Surgical", icon: "✚", slug: "face-lift" },
   { name: "Neck Lift", desc: "Surgical · Neck tightening", price: "$8k – $20k", type: "Surgical", icon: "✚", slug: "neck-lift" },
   { name: "Brow Lift", desc: "Surgical · Forehead lift", price: "$5k – $12k", type: "Surgical", icon: "✚", slug: "brow-lift" },
@@ -36,39 +43,23 @@ const categories = ["All", "Energy", "Injectable", "Surgical", "Dental"];
 
 export default function ExplorePage() {
   const [active, setActive] = useState("All");
-
-  const filtered = active === "All"
-    ? allTreatments
-    : allTreatments.filter(t => t.type === active);
+  const filtered = active === "All" ? allTreatments : allTreatments.filter(t => t.type === active);
 
   return (
     <div style={{ paddingBottom: 80 }}>
       <div style={{ padding: "52px 16px 16px" }}>
         <div style={{ fontSize: 22, fontWeight: 500, letterSpacing: -0.5 }}>Explore</div>
         <div style={{ fontSize: 13, color: "#a09d98", marginTop: 4 }}>
-          {filtered.length} treatment{filtered.length !== 1 ? "s" : ""}
-          {active !== "All" ? ` · ${active}` : " in AQ"}
+          {filtered.length} treatment{filtered.length !== 1 ? "s" : ""}{active !== "All" ? ` · ${active}` : " in AQ"}
         </div>
       </div>
 
-      {/* Category pills */}
       <div style={{ padding: "0 16px 20px", display: "flex", gap: 8, overflowX: "auto" }}>
         {categories.map(c => (
-          <div
-            key={c}
-            onClick={() => setActive(c)}
-            style={{
-              padding: "8px 18px", borderRadius: 20, flexShrink: 0, cursor: "pointer", transition: "all 0.15s",
-              background: active === c ? "#1a1917" : "#f7f6f3",
-              color: active === c ? "white" : "#6b6863",
-              fontSize: 13, fontWeight: active === c ? 500 : 400,
-              border: active === c ? "none" : "0.5px solid #e8e6e1",
-            }}
-          >{c}</div>
+          <div key={c} onClick={() => setActive(c)} style={{ padding: "8px 18px", borderRadius: 20, flexShrink: 0, cursor: "pointer", background: active === c ? "#1a1917" : "#f7f6f3", color: active === c ? "white" : "#6b6863", fontSize: 13, fontWeight: active === c ? 500 : 400, border: active === c ? "none" : "0.5px solid #e8e6e1" }}>{c}</div>
         ))}
       </div>
 
-      {/* Treatment list */}
       <div style={{ padding: "0 16px" }}>
         {filtered.map(t => {
           const tc = typeColor(t.type);
