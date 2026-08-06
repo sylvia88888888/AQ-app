@@ -65,6 +65,11 @@ export default function ScanPage() {
       setStep(s => s + 1);
     } else {
       stopCamera();
+      // Save photos to sessionStorage for analysis
+      const allPhotos = [...photos, dataUrl];
+      try {
+        sessionStorage.setItem("aq-photos", JSON.stringify(allPhotos));
+      } catch {}
       setAnalyzing(true);
       setTimeout(() => router.push("/goal"), 2500);
     }
@@ -81,6 +86,10 @@ export default function ScanPage() {
       if (step < 2) {
         setStep(s => s + 1);
       } else {
+        const allPhotos = [...photos, dataUrl];
+        try {
+          sessionStorage.setItem("aq-photos", JSON.stringify(allPhotos));
+        } catch {}
         setAnalyzing(true);
         setTimeout(() => router.push("/goal"), 2500);
       }
