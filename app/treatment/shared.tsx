@@ -412,7 +412,7 @@ export const treatments: Record<string, {
     prices: [{ loc: "Los Angeles", price: "$800 – $2,000 / session" }, { loc: "Package of 3", price: "$2,000 – $5,000" }, { loc: "US average per session", price: "$700 – $1,800" }],
   },
   "thread-lift": {
-    name: "Thread Lift (线雕)", type: "Minimally Invasive · PDO", icon: "◈", colorBg: "#fffbeb",
+    name: "Thread Lift", type: "Minimally Invasive · PDO", icon: "◈", colorBg: "#fffbeb",
     downtime: "3–7 days", sessions: "1 session", resultsLast: "1–2 years",
     what: "Thread lifts use dissolvable PDO or PLLA threads inserted under the skin to physically lift sagging tissue and stimulate collagen. Threads dissolve over 6 months while the collagen they stimulate provides ongoing support. Popular for jawline definition and mid-face lifting.",
     good: ["Those with mild to moderate jowling not ready for surgery", "People wanting immediate lifting with minimal downtime", "Those wanting to complement filler or energy devices"],
@@ -482,7 +482,7 @@ export const treatments: Record<string, {
     prices: [{ loc: "Los Angeles", price: "$200 – $400" }, { loc: "US average", price: "$150 – $350" }, { loc: "With boosters / LED add-on", price: "$250 – $500" }],
   },
   "skinbooster": {
-    name: "Skinbooster / 水光针", type: "Injectable · Hydration", icon: "💧", colorBg: "#eff6ff",
+    name: "Skinbooster", type: "Injectable · Hydration", icon: "💧", colorBg: "#eff6ff",
     downtime: "1–2 days", sessions: "3 sessions then quarterly", resultsLast: "6–9 months",
     what: "Skinboosters (水光针) involve micro-injections of highly diluted hyaluronic acid throughout the skin to deeply hydrate, improve skin quality, elasticity, and luminosity. Unlike filler which adds volume, skinboosters work within the skin layers for a 'glass skin' hydration effect. Brands include Juvederm Volite, Restylane Skinboosters, and Teosyal Redensity.",
     good: ["Those with dull, dehydrated, or crepey skin wanting deep hydration and glow", "People with fine lines from dehydration rather than volume loss", "Those wanting to improve skin quality as a foundation before other treatments"],
