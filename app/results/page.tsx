@@ -43,7 +43,10 @@ function ResultsContent() {
     let photos: string[] = [];
     try {
       const stored = sessionStorage.getItem("aq-photos");
-      if (stored) photos = JSON.parse(stored);
+      if (stored) {
+        photos = JSON.parse(stored);
+        sessionStorage.removeItem("aq-photos"); // Clear immediately after use
+      }
     } catch {}
 
     if (photos.length > 0) {
