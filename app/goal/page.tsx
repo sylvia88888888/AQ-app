@@ -63,7 +63,10 @@ export default function GoalPage() {
 
       <div style={{ padding: "0 16px 24px" }}>
         <div style={{ height: 3, background: "#e8e6e1", borderRadius: 2 }}>
-          <div style={{ width: "65%", height: "100%", background: "#2563eb", borderRadius: 2 }} />
+          <div style={{
+            width: `${Math.min(100, 15 + (selectedGoals.length > 0 ? 25 : 0) + (selectedConcerns.length > 0 ? 20 : 0) + (age !== 38 || budget !== 2000 ? 20 : 0) + (skin !== "Combination" ? 20 : 0))}%`,
+            height: "100%", background: "#2563eb", borderRadius: 2, transition: "width 0.4s ease"
+          }} />
         </div>
       </div>
 
